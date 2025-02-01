@@ -1,4 +1,4 @@
-FROM intel/intel-extension-for-pytorch:2.1.10-xpu 
+FROM intel/intel-extension-for-pytorch:2.5.10-xpu
 ENV LANG=C.UTF-8
 
 ARG DEBIAN_FRONTEND=noninteractive
