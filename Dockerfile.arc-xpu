@@ -23,16 +23,15 @@ ENV IPEX_XPU_ONEDNN_LAYOUT=0
 #RUN apt update && \
 #    apt install -y sudo 
 
-COPY poetry.lock /deps/
-COPY pyproject.toml /deps/
+# COPY poetry.lock /deps/
+# COPY pyproject.toml /deps/
 
 # install an XPU patched version of OpenAI Whisper and the whisper-asr-webservice
 RUN pip install poetry==1.6.1 setuptools wheel && \
-	pip install --upgrade git+https://github.com/leuc/whisper.git@b4bc9b280a2db1515782e0d68a02f90cebcd438e && \
+	pip install --upgrade git+https://github.com/Tag3r1s/whisper.git && \
 	export PATH=$PATH:/home/user/.local/bin && \
 	git clone https://github.com/ahmetoner/whisper-asr-webservice.git app && \
-	cd app && git checkout 51c6eceda0836d145048224693c69c2706d78f46 && \
-	rm poetry.lock pyproject.toml && cp /deps/* ./ && \
+	cd app && \
 	poetry config virtualenvs.create false && \
 	poetry lock && poetry install --no-interaction && \
 	sudo apt-get clean && \
