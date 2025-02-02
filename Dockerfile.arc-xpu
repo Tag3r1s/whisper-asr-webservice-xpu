@@ -27,7 +27,7 @@ ENV IPEX_XPU_ONEDNN_LAYOUT=0
 # COPY pyproject.toml /deps/
 
 # install an XPU patched version of OpenAI Whisper and the whisper-asr-webservice
-RUN pip install poetry==1.6.1 setuptools wheel && \
+RUN pip install poetry setuptools wheel && \
 	pip install --upgrade git+https://github.com/Tag3r1s/whisper.git && \
 	export PATH=$PATH:/home/user/.local/bin && \
 	git clone https://github.com/ahmetoner/whisper-asr-webservice.git app && \
@@ -37,4 +37,4 @@ RUN pip install poetry==1.6.1 setuptools wheel && \
 	sudo apt-get clean && \
 	sudo rm -rf  /var/lib/apt/lists/*
 
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:9000", "--workers", "1", "--timeout", "0", "app.webservice:app", "-k", "uvicorn.workers.UvicornWorker"]
+ENTRYPOINT ["whisper-asr-webservice"]
